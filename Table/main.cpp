@@ -1,36 +1,25 @@
+#include <stdio.h>
 #include <iostream>
-#include "TableCipher.h"
-
+#include <string>
+#include "chifr.h"
 using namespace std;
 
-int main() {
-    wstring key;
-    wstring text;
-    unsigned op;
+string encrypt(string in, const int kluch);
+string decrypt(string in, const int kluch);
 
-    wcout << "Cipher ready. Input key: ";
-    wcin >> key;
-    TableCipher cip(key);
-    wcout << "Key loaded\n";
+int main(int argc, char **argv)
+{
+    chifr enc;
+    int COLS = 10;
 
-    do {
-        wcout << "Cipher ready. Input operation (0-exit, 1-encrypt, 2-decrypt): ";
-        wcin >> op;
+    string public_message = "PRESENT";
+    string privat_message = enc.encrypt(public_message, COLS);
+    string decode_message = enc.decrypt(privat_message, COLS);
 
-        if (op > 2) {
-            wcout << "Illegal operation\n";
-        } else if (op > 0) {
-            wcout << "Cipher ready. Input text: ";
-            wcin.ignore();
-            getline(wcin, text);
-
-            if (op == 1) {
-                wcout << "Encrypted text: " << cip.encrypt(text) << endl;
-            } else {
-                wcout << "Decrypted text: " << cip.decrypt(text) << endl;
-            }
-        }
-    } while (op != 0);
+    cout << public_message << endl;
+    cout << privat_message << endl;
+    cout << decode_message << endl;
 
     return 0;
 }
+
